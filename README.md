@@ -24,6 +24,7 @@ models. Everything works on CPU (just slower than GPU).
 
 | Exercise | File | What You'll Learn |
 |----------|------|-------------------|
+| 1.0 Local Forecast (runs on this Mac) | `ex00_local_dlwp_forecast.py` | Full pipeline on CPU: real GFS initial condition, DLWP 5-day global forecast, verification vs analysis with persistence baseline |
 | 1.1 First Forecast | `ex01_first_forecast.py` | Model-Data-IO-Run pattern, FCN3, GFS data |
 | 1.2 Visualization | `ex02_visualize_forecast.py` | xarray, matplotlib, weather maps, regional plots |
 | 1.3 Model Comparison | `ex03_compare_models.py` | FCN3 vs DLWP, RMSE, error growth, spectral analysis |
@@ -81,7 +82,9 @@ nvidia-earth2-learning/
 
 ## Important Notes
 
-- **macOS users**: Use `pip install earth2studio` (not `[all]`). CUDA extras are Linux-only.
+- **Start here on this Mac**: `ex00_local_dlwp_forecast.py` is verified to run end to end on Apple Silicon CPU (about 15 seconds warm). See `RUNBOOK.md` for the honest capability map: DLWP runs locally; FCN3, SFNO, Pangu, and GraphCast need cloud GPUs, with exact Colab and NGC steps.
+- **macOS users**: Use `pip install earth2studio` (not `[all]`). CUDA extras are Linux-only. DLWP also needs `pip install nvidia-physicsnemo` (already in `.venv`).
 - **No GPU?** Level 1 exercises work on CPU. For Level 2+, consider Google Colab (free T4).
+- **API note**: earth2studio 0.13 renamed the run argument to `prognostic=` (older docs show `model=`). ex01 as written also requires FCN3 extras that do not install on macOS; use ex00 locally and run ex01 on Colab.
 - **Models auto-download** weights on first use (~500MB per model). Be patient.
 - **Longitude convention**: Earth2Studio uses 0-360°. Convert: `lon_360 = 360 - lon_west`.
